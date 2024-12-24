@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screenshot Preview</title>
+    <style>
+        body {
+            width: 400px;
+            height: 300px;
+            margin: 0;
+            padding: 12px;
+            font-family: Arial, sans-serif;
+            background: #1e1e1e;
+            color: #fff;
+        }
+
+        .header {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .button {
+            padding: 6px 12px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+
+        .button:hover {
+            background: #106ebe;
+        }
+
+        .button.screenshot {
+            background: #107c10;
+        }
+
+        .button.screenshot:hover {
+            background: #0b5a0b;
+        }
+
+        .preview-container {
+            height: 220px;
+            background: #252526;
+            border: 1px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .error {
+            color: #f14c4c;
+            padding: 8px;
+            background: rgba(241, 76, 76, 0.1);
+            border-radius: 4px;
+            margin: 8px 0;
+            display: none;
+            font-size: 12px;
+        }
+
+        .no-preview {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #888;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Screenshot Preview</h2>
+        <button id="actionButton" class="button">Preview</button>
+    </div>
+
+    <div id="error" class="error"></div>
+    
+    <div class="preview-container">
+        <div id="loading" class="loading">Loading preview...</div>
+        <div id="noPreview" class="no-preview">Click Preview to start</div>
+        <img id="previewImage" class="preview-image" alt="Screenshot preview">
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
