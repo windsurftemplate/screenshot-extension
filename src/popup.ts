@@ -16,28 +16,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function takeScreenshot(): void {
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-            if (!tabs[0]) {
+            if (!tabs[0]?.id) {
                 showError('No active tab found');
                 return;
             }
 
-            chrome.tabs.captureVisibleTab(null, {format: 'png'}, (dataUrl) => {
+            chrome.tabs.captureVisibleTab(tabs[0].windowId ?? chrome.windows.WINDOW_ID_CURRENT, {format: 'png'}, (dataUrl) => {
                 if (chrome.runtime.lastError) {
-                    showError(chrome.runtime.lastError.message);
+                    showError(chrome.runtime.lastError.message || 'Unknown error');
                     return;
                 }
 
-                previewImage.src = dataUrl;
-                previewImage.onload = () => {
-                    loading.style.display = 'none';
-                    previewImage.style.display = 'block';
-                    noPreview.style.display = 'none';
-                    
-                    // Change to screenshot mode
-                    isPreviewMode = false;
-                    actionButton.textContent = 'Screenshot';
-                    actionButton.classList.add('screenshot');
-                };
+                if (dataUrl) {
+                    previewImage.src = dataUrl;
+                    previewImage.onload = () => {
+                        loading.style.display = 'none';
+                        previewImage.style.display = 'block';
+                        noPreview.style.display = 'none';
+                        
+                        // Change to screenshot mode
+                        isPreviewMode = false;
+                        actionButton.textContent = 'Screenshot';
+                        actionButton.classList.add('screenshot');
+                    };
+                }
             });
         });
     }
@@ -53,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filename: 'screenshot.png'
         }, () => {
             if (chrome.runtime.lastError) {
-                showError(chrome.runtime.lastError.message);
+                showError(chrome.runtime.lastError.message || 'Download failed');
                 return;
             }
 
