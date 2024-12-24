@@ -35,12 +35,14 @@ Windsurf Prompts is a Chrome extension designed to easily copy and paste prompts
 ### Setup
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/yourusername/windsurf-prompts-extension.git
 cd windsurf-prompts-extension
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 ```
